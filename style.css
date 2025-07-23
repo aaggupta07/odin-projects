@@ -1,0 +1,70 @@
+html {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    font-family: Calibri, 'Trebuchet MS', sans-serif;
+    line-height: 1.5;
+}
+
+p,
+ol,
+ul,
+h2,
+h1 {
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+*,
+*::before,
+*::after
+{
+    box-sizing: inherit;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: -12px;
+    font-family: 'EB Garamond', Georgia, Garamond, serif;
+}
+
+.link {
+    display: flex;
+}
+
+.link a {
+    flex: 1;
+    text-align: center;
+    background-color: white;
+    border: 1px solid black;
+    margin-top: 15px;
+    padding-top: 7px;
+    padding-bottom: 12px;
+}
+
+img {
+    width: 70%;
+    margin: 12px auto;
+    display: block;
+    height: auto;
+}
+
+.home {
+    background-color: white;
+    padding: 8px;
+    text-align: left;
+    margin-top: 0px;
+    margin-bottom: -30px;
+    margin-left: 10px;
+    display: block;
+}
+
+h2 {
+    text-align: left;
+    margin-bottom: -10px;
+}
+
+.desc {
+    margin-left: 17%;
+}
+
