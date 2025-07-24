@@ -199,3 +199,61 @@ h2 {
     font-weight: 100;
 }
 
+.recipe-header {
+    text-align: center;
+    margin: 12px;
+}
+
+.recipe-section,
+.desc {
+    text-align: left;
+    margin: 12px;
+}
+
+.desc,
+ul.ing,
+.steps ol {
+    line-height: 1.75;
+}
+
+.content-recipe {
+    display: flex;
+    padding: 12px 36px;
+    gap: 36px;
+    align-items: flex-start;
+    background-color: #E5E7EB;
+}
+
+.recipe-info {
+    flex: 1;
+}
+
+.recipe-info div {
+    margin-bottom: 36px;
+}
+
+.recipe-image {
+    display: block;
+    flex: 1;
+    height: auto;
+}
+
+ul.ing {
+    list-style-type: disc;
+    margin-left: 24px;
+}
+
+.steps {
+    padding: 12px 36px;
+    background-color: #435875;
+    color: white;
+}
+
+.steps h2 {
+    color: white;
+}
+
+.recipe-info a {
+    color: #1F2937;
+    font-weight: bold;
+}
