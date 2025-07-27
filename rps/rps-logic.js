@@ -1,7 +1,7 @@
 const WIN_GREEN = '#a7c957';
 const LOSS_RED = '#bc4749';
 const TIE_YELLOW = '#fdd78cff';
-
+const GAME_ROUNDS = 5;
 
 function getComputerChoice() {
     const choice = Math.floor(Math.random() * 3);
@@ -44,10 +44,81 @@ function playRound(event) {
     }
 
     ++roundCount;
+
+    if(humanScore + computerScore >= GAME_ROUNDS) displayEnd();
 }
 
-function printResult() {
-    console.log(`You won ${humanScore} times, lost ${computerScore} times, and tied ${1 - humanScore - computerScore} times. Thanks for playing!`);
+function retry() {
+    // reset scores
+    humanScore = -1, computerScore = -1, roundCount = 0;
+    updateScore(document.querySelector('#computerScore'));
+    updateScore(document.querySelector('#humanScore'));
+
+    // clear results
+    const results = document.querySelectorAll('.results li');
+    results.forEach((element) => element.remove());
+
+    const buttons = document.querySelector(".button-options");
+    buttons.parentElement.addEventListener("click", playRound);
+}
+
+function getOverallResult() {
+    if(computerScore > humanScore) {
+        return "You Lose! ";
+    }
+    else if(humanScore > computerScore) {
+        return "You Win! ";
+    }
+
+    // should theoretically never happen
+    else {
+        return "You Tied? ";
+    }
+}
+
+function getResultColor() {
+    if(computerScore > humanScore) {
+        return LOSS_RED;
+    }
+    else if(humanScore > computerScore) {
+        return WIN_GREEN;
+    }
+
+    // should theoretically never happen
+    else {
+        return TIE_YELLOW;
+    }
+}
+
+function displayEnd() {
+    // deactivate normal buttons
+    const buttons = document.querySelector(".button-options");
+    buttons.parentElement.removeEventListener("click", playRound);
+
+    // create end info box & retry button
+    const resultBox = document.querySelector(".results");
+
+    const endResult = document.createElement("li");
+    endResult.classList.add("end");
+
+    const retryDiv = document.createElement("div");
+    retryDiv.classList.add("retry");
+
+    const retryButton = document.createElement("button");
+    retryButton.textContent = "Play Again!";
+    retryButton.addEventListener("click", retry);
+
+    const overallResult = getOverallResult();
+    const resultColor = getResultColor();
+
+    endResult.textContent = overallResult + `You won ${humanScore} times, lost ${computerScore} times, and tied ${roundCount - humanScore - computerScore} times. Thanks for playing!`;
+
+    endResult.style.backgroundColor = resultColor;
+    retryButton.style.backgroundColor = resultColor;
+
+    retryDiv.appendChild(retryButton);
+    endResult.appendChild(retryDiv);
+    resultBox.appendChild(endResult);
 }
 
 // Implement UI
@@ -86,7 +157,4 @@ function updateScore(scoreToUpdate) {
     }
 }
 
-const buttons = document.querySelector("button");
-buttons.parentElement.addEventListener("click", playRound);
-
-// Todo: add a button to request rounds played, a restart button
+retry();

@@ -46,8 +46,7 @@ button {
     padding: 4px;
 }
 
-.button-options button,
-.retry button {
+.button-options button {
     flex: 1;
 }
 
@@ -70,4 +69,19 @@ button {
 
 .retry {
     display: flex;
+    justify-content: center;
+    padding: 0px;
+    margin: 0px;
+}
+
+.retry button {
+    padding: 8px;
+    margin: 8px;
+    border: black solid 2px;
+}
+
+.end {
+    text-align: center;
+    font-size: 24;
+    font-weight: bold;
 }
