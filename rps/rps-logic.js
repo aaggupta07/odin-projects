@@ -1,3 +1,8 @@
+const WIN_GREEN = '#a7c957';
+const LOSS_RED = '#bc4749';
+const TIE_YELLOW = '#fdd78cff';
+
+
 function getComputerChoice() {
     const choice = Math.floor(Math.random() * 3);
 
@@ -11,38 +16,77 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice() {
-    return prompt("Please enter your choice (Rock, Paper, or Scissors):").toLowerCase().trim();
+function getHumanChoice(event) {
+    return event.target.id;
 }
 
-function playGame(rounds) {
-    let humanScore = 0, computerScore = 0;
+let humanScore = 0, computerScore = 0, roundCount = 0;
 
-    function playRound(humanChoice, computerChoice) {
-        const map = new Map();
-        map.set("rock", "scissors");
-        map.set("paper", "rock");
-        map.set("scissors", "paper");
+function playRound(event) {
+    const humanChoice = getHumanChoice(event);
+    const computerChoice = getComputerChoice();
 
-        if(humanChoice == computerChoice) {
-            console.log("Tie! Both players chose " + humanChoice);
-        }
-        else if(humanChoice == map.get(computerChoice)) {
-            console.log(`You Lose! You chose ${humanChoice} and the computer chose ${computerChoice}`);
-            ++computerScore;
-        }
-        else {
-            console.log(`You Win! You chose ${humanChoice} and the computer chose ${computerChoice}`);
-            ++humanScore;
-        }
+    const map = new Map();
+    map.set("rock", "scissors");
+    map.set("paper", "rock");
+    map.set("scissors", "paper");
+
+    if(humanChoice == computerChoice) {
+        displayResult(0, humanChoice, computerChoice);
+    }
+    else if(humanChoice == map.get(computerChoice)) {
+        updateScore(document.querySelector('#computerScore'));
+        displayResult(1, humanChoice, computerChoice);
+    }
+    else {
+        updateScore(document.querySelector('#humanScore'));
+        displayResult(2, humanChoice, computerChoice);
     }
 
-    for(let i = 0; i < rounds; ++i) {
-        playRound(getHumanChoice(), getComputerChoice());
-    }
-
-    console.log(`You won ${humanScore} times, lost ${computerScore} times, and tied ${rounds - humanScore - computerScore} times. Thanks for playing!`);
+    ++roundCount;
 }
+
+function printResult() {
+    console.log(`You won ${humanScore} times, lost ${computerScore} times, and tied ${1 - humanScore - computerScore} times. Thanks for playing!`);
+}
+
+// Implement UI
+
+function displayResult(outcomeCode, humanChoice, computerChoice) {
+    const resultSelector = document.querySelector(".results");
+    const newResult = document.createElement("li");
+    newResult.classList.add("result");
+
+    switch(outcomeCode) {
+        case 0:
+            newResult.style.backgroundColor = TIE_YELLOW;
+            newResult.textContent = "Tie! Both players chose " + humanChoice;
+            break;
+        case 1:
+            newResult.style.backgroundColor = LOSS_RED;
+            newResult.textContent = `You Lose! You chose ${humanChoice} and the computer chose ${computerChoice}`;
+            break;
+        case 2:
+            newResult.style.backgroundColor = WIN_GREEN;
+            newResult.textContent = `You Win! You chose ${humanChoice} and the computer chose ${computerChoice}`;
+            break;
+    }
+
+    resultSelector.appendChild(newResult);
+}
+
+function updateScore(scoreToUpdate) {
+    if(scoreToUpdate.id == 'humanScore') {
+        ++humanScore;
+        scoreToUpdate.textContent = "Your score: " + humanScore; 
+    }
+    else {
+        ++computerScore;
+        scoreToUpdate.textContent = "Computer score: " + computerScore;
+    }
+}
+
+const buttons = document.querySelector("button");
+buttons.parentElement.addEventListener("click", playRound);
 
 // Todo: add a button to request rounds played, a restart button
-playGame(5);
