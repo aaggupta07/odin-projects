@@ -1,0 +1,73 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: 'Roboto', 'Nunito', 'Trebuchet MS', sans-serif;
+    margin: 0px;
+    padding: 0px;
+}
+
+.scores {
+    display: flex;
+    list-style-type: none;
+    justify-content: center;
+    gap: 64px;
+    padding: 12px;
+    margin: 0px;
+    min-height: 45px;
+    background-color: gray;
+}
+
+.scores li {
+    font-size: 18px;
+    color: black;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+}
+
+.button-options {
+    display: flex;
+    background-color: black;
+}
+
+button {
+    border-radius: 0px;
+    margin: 0px;
+    font-size: 18px;
+    border: darkgray solid 2px;
+    padding: 4px;
+}
+
+.button-options button,
+.retry button {
+    flex: 1;
+}
+
+.button-options #paper {
+    border-left: 0px;
+    border-right: 0px;
+}
+
+.results {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.results li {
+    margin: 0px;
+    padding: 8px;
+    font-size: 18px;
+}
+
+.retry {
+    display: flex;
+}
