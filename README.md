@@ -1,2 +1,3 @@
-# odin-recipes
-Practice HTML project following curriculum of The Odin Project. 
+# odin-projects
+A repo containing (most) of my projects following The Odin Project curriculum.
+ 
