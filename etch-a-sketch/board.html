@@ -9,7 +9,15 @@
     </head>
 
     <body>
-        <h1>Etch-a-Sketch</h1>
+        <div class="controls">
+            <h1>Etch-a-Sketch</h1>
+            <div class="reset">
+                <input type="range" id="grid-size" name="grid-size" min="4" max="64"> 
+                <div class="grid-size-display"></div>
+                <button>Resize &amp; Clear</button>
+            </div>
+            <div class="error-msg"></div>
+        </div>
         <div class="container">
 
         </div>

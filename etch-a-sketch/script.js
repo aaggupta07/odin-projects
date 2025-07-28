@@ -1,4 +1,8 @@
+const MAX_GRID_SIZE = 64;
+const MIN_GRID_SIZE = 4;
+
 let gridSize = 16;
+const gridSizeInputBox = document.querySelector("#grid-size");
 
 // function debounce(fn, delay) {
 //     let timeoutID;
@@ -8,6 +12,24 @@ let gridSize = 16;
 //         timeoutID = setTimeout(() => fn(...args), delay);
 //     }
 // }
+
+
+function validateGridSize() {
+    const errorBox = document.querySelector(".error-msg");
+
+    if(gridSize > MAX_GRID_SIZE) {
+        errorBox.textContent = "Grid size cannot exceed 100";
+        return false;
+    }
+    else if(gridSize < MIN_GRID_SIZE) {
+        errorBox.textContent = "Grid must be at least 1 square large";
+        return false;
+    }
+    else {
+        errorBox.textContent = "";
+        return true;
+    }
+}
 
 function createBoard() {
     const container = document.querySelector(".container");
@@ -37,9 +59,19 @@ function onHover(event) {
     if(event.buttons == 1) event.target.classList.add("hovered");
 }
 
+function resetGrid() {
+    gridSize = Number(gridSizeInputBox.value);
+    if(validateGridSize()) createBoard();
+}
+
 createBoard(gridSize);
 
 addEventListener("resize", createBoard);
+
+gridSizeInputBox.value = 16;
+
+const resetButton = document.querySelector(".reset button");
+resetButton.addEventListener("click", resetGrid);
 
 const container = document.querySelector(".container");
 container.addEventListener("mouseover", onHover)
