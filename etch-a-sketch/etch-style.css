@@ -12,15 +12,24 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: space-evenly;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-end;
     gap: 64px;
     margin: 64px;
+
+    font-family: 'Roboto', 'Trebuchet MS', sans-serif;
 }
 
 .container {
-    width: 500px;
-    height: 50%;
     border: black solid 1px;
+    flex: 1;
+    max-width: 600px;
+    min-width: 300px;
+}
+
+.controls {
+    margin-bottom: 16px;
 }
 
 .row {
@@ -34,4 +43,45 @@ body {
 
 .container .hovered {
     background-color: black;
+}
+
+h1 {
+    margin-bottom: 4px;
+}
+
+#grid-size {
+    flex: 1;
+    padding: 8px;
+    margin: 0px;
+}
+
+.reset {
+    display: flex;
+    column-gap: 24px;
+    row-gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+
+.reset p {
+    padding: 0px;
+    margin: 0px;
+}
+
+.reset .resize {
+    display: flex;
+    max-width: 250px;
+    gap: 4px;
+    align-items: center;
+    margin: 0px;
+}
+
+button {
+    padding: 8px;
+    margin: 0px;
+    border-radius: 8px;
+    font-weight: bold;
+    border: darkgray solid 1px;
 }

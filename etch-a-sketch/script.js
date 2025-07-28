@@ -23,7 +23,6 @@ function createBoard() {
         row.classList.add("row");
 
         const height = Math.floor(container.clientWidth / gridSize);
-        console.log("Called! Width: " + container.clientWidth + " Height: " + height);
         row.style.height = `${height}px`;
 
         for(let j = 0; j < gridSize; ++j) {
