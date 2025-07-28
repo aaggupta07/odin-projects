@@ -32,7 +32,15 @@ function createBoard() {
     }
 }
 
+function onHover(event) {
+    console.log("Called! " + event.button + " " + event.target);
+    if(event.buttons == 1) event.target.classList.add("hovered");
+}
+
 createBoard(gridSize);
 
 addEventListener("resize", createBoard);
+
+const container = document.querySelector(".container");
+container.addEventListener("mouseover", onHover)
 

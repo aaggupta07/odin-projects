@@ -31,3 +31,7 @@ body {
     border: black solid 1px;
     background-color: white;
 }
+
+.container .hovered {
+    background-color: black;
+}
