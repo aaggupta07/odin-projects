@@ -59,15 +59,15 @@ function retry() {
     results.forEach((element) => element.remove());
 
     const buttons = document.querySelector(".button-options");
-    buttons.parentElement.addEventListener("click", playRound);
+    buttons.addEventListener("click", playRound);
 }
 
 function getOverallResult() {
     if(computerScore > humanScore) {
-        return "You Lose! ";
+        return "You lost the best of five. ";
     }
     else if(humanScore > computerScore) {
-        return "You Win! ";
+        return "You won the best of five! ";
     }
 
     // should theoretically never happen
@@ -93,7 +93,7 @@ function getResultColor() {
 function displayEnd() {
     // deactivate normal buttons
     const buttons = document.querySelector(".button-options");
-    buttons.parentElement.removeEventListener("click", playRound);
+    buttons.removeEventListener("click", playRound);
 
     // create end info box & retry button
     const resultBox = document.querySelector(".results");
