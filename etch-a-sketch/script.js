@@ -1,17 +1,18 @@
 const MAX_GRID_SIZE = 64;
 const MIN_GRID_SIZE = 4;
 
+const MODE = Object.freeze({
+    BLACK: 0,
+    RAINBOW: 1,
+    ERASER: 2,
+});
+
 let gridSize = 16;
+let currentMode = MODE.BLACK;
 const gridSizeInputBox = document.querySelector("#grid-size");
+const container = document.querySelector(".container");
 
-// function debounce(fn, delay) {
-//     let timeoutID;
-
-//     return function(...args) {
-//         clearTimeout(timeoutID);
-//         timeoutID = setTimeout(() => fn(...args), delay);
-//     }
-// }
+const BACKGROUND_COLOR = container.style.backgroundColor;
 
 function createBoard() {
     const container = document.querySelector(".container");
@@ -35,8 +36,38 @@ function createBoard() {
     }
 }
 
+function randRGB() {
+    return Math.floor(Math.random() * 256);
+}
+
 function onHover(event) {
-    if(event.buttons == 1) event.target.classList.add("hovered");
+    if(event.buttons == 1) {
+        let toColor;
+        
+        if(currentMode == MODE.RAINBOW) toColor = `rgb(${randRGB()}, ${randRGB()}, ${randRGB()})`;
+        else if(currentMode == MODE.ERASER) toColor = BACKGROUND_COLOR;
+        else toColor = "black";
+        
+        event.target.style.backgroundColor = toColor;
+    }
+}
+
+function switchMode(event) {
+    // unselect old button, select new button
+    event.target.parentElement.querySelector(".selected").classList.remove("selected");
+    event.target.classList.add("selected");
+
+    switch(event.target.id) {
+        case "black":
+            currentMode = MODE.BLACK;
+            break;
+        case "rainbow":
+            currentMode = MODE.RAINBOW;
+            break;
+        case "eraser":
+            currentMode = MODE.ERASER;
+            break;
+    }
 }
 
 function onGridResize() {
@@ -56,6 +87,8 @@ onGridResize();
 const resetButton = document.querySelector(".reset button");
 resetButton.addEventListener("click", createBoard);
 
-const container = document.querySelector(".container");
-container.addEventListener("mouseover", onHover)
+container.addEventListener("mouseover", onHover);
+
+const toolBox = document.querySelector(".tools");
+toolBox.addEventListener("click", switchMode);
 

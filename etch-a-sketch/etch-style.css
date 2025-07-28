@@ -41,10 +41,6 @@ body {
     background-color: white;
 }
 
-.container .hovered {
-    background-color: black;
-}
-
 h1 {
     margin-bottom: 4px;
 }
@@ -84,4 +80,16 @@ button {
     border-radius: 8px;
     font-weight: bold;
     border: darkgray solid 1px;
+}
+
+.tools {
+    display: flex;
+    justify-content: center;
+    margin-top: 12px;
+    gap: 8px;
+    padding: 8px;
+}
+
+button.selected {
+    border: black solid 2px;
 }
