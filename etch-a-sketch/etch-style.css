@@ -1,0 +1,33 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-evenly;
+    gap: 64px;
+    margin: 64px;
+}
+
+.container {
+    width: 500px;
+    height: 50%;
+}
+
+.row {
+    display: flex;
+}
+
+.square {
+    flex: 1;
+    border: black solid 1px;
+    background-color: white;
+}
