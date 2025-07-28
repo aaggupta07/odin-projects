@@ -13,24 +13,6 @@ const gridSizeInputBox = document.querySelector("#grid-size");
 //     }
 // }
 
-
-function validateGridSize() {
-    const errorBox = document.querySelector(".error-msg");
-
-    if(gridSize > MAX_GRID_SIZE) {
-        errorBox.textContent = "Grid size cannot exceed 100";
-        return false;
-    }
-    else if(gridSize < MIN_GRID_SIZE) {
-        errorBox.textContent = "Grid must be at least 1 square large";
-        return false;
-    }
-    else {
-        errorBox.textContent = "";
-        return true;
-    }
-}
-
 function createBoard() {
     const container = document.querySelector(".container");
     const curElements = container.querySelectorAll(".row");
@@ -59,19 +41,22 @@ function onHover(event) {
     if(event.buttons == 1) event.target.classList.add("hovered");
 }
 
-function resetGrid() {
-    gridSize = Number(gridSizeInputBox.value);
-    if(validateGridSize()) createBoard();
+function onGridResize() {
+    const displayBox = document.querySelector(".grid-size-display");
+    gridSize = Math.min(Math.max(0, Number(gridSizeInputBox.value)), 64);
+    displayBox.textContent = gridSize;
 }
 
 createBoard(gridSize);
 
 addEventListener("resize", createBoard);
 
+gridSizeInputBox.addEventListener("input", onGridResize);
 gridSizeInputBox.value = 16;
+onGridResize();
 
 const resetButton = document.querySelector(".reset button");
-resetButton.addEventListener("click", resetGrid);
+resetButton.addEventListener("click", createBoard);
 
 const container = document.querySelector(".container");
 container.addEventListener("mouseover", onHover)
