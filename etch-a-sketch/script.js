@@ -11,6 +11,7 @@ let gridSize = 16;
 let currentMode = MODE.BLACK;
 const gridSizeInputBox = document.querySelector("#grid-size");
 const container = document.querySelector(".container");
+const toolBox = document.querySelector(".tools");
 
 const BACKGROUND_COLOR = container.style.backgroundColor;
 
@@ -53,11 +54,13 @@ function onHover(event) {
 }
 
 function switchMode(event) {
-    // unselect old button, select new button
-    event.target.parentElement.querySelector(".selected").classList.remove("selected");
-    event.target.classList.add("selected");
+    const newButton = event.target;
+    const oldButton = event.target.parentElement.querySelector(".selected");
 
-    switch(event.target.id) {
+    if(newButton != toolBox && oldButton != null) oldButton.classList.remove("selected");
+    if(newButton != null) newButton.classList.add("selected");
+
+    switch(newButton.id) {
         case "black":
             currentMode = MODE.BLACK;
             break;
@@ -89,6 +92,5 @@ resetButton.addEventListener("click", createBoard);
 
 container.addEventListener("mouseover", onHover);
 
-const toolBox = document.querySelector(".tools");
 toolBox.addEventListener("click", switchMode);
 
