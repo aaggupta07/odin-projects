@@ -36,7 +36,6 @@ function createBoard() {
 }
 
 function onHover(event) {
-    console.log("Called! " + event.button + " " + event.target);
     if(event.buttons == 1) event.target.classList.add("hovered");
 }
 
