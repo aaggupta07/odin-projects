@@ -1,5 +1,5 @@
 const SCREEN_PLACEHOLDER_TEXT = "Display";
-const DECIMAL_PLACE_LIMIT = 8;
+const DECIMAL_PLACE_LIMIT = 12;
 
 const Calculator = {
     add: (a, b) => a + b,
@@ -20,14 +20,18 @@ errorBox.classList.add("errors");
 
 let firstNum = "", secondNum = "", currentOperator = "";
 
+function round(num) {
+    return parseFloat(num.toPrecision(DECIMAL_PLACE_LIMIT));
+}
+
 function operate(operator, firstNum, secondNum) {
     switch(operator) {
         case '+': 
-            return Calculator.add(firstNum, secondNum);
+            return round(Calculator.add(firstNum, secondNum));
         case '-':
-            return Calculator.subtract(firstNum, secondNum);
+            return round(Calculator.subtract(firstNum, secondNum));
         case '*':
-            return Calculator.multiply(firstNum, secondNum);
+            return round(Calculator.multiply(firstNum, secondNum));
         case '/':
             const val = Calculator.divide(firstNum, secondNum);
 
@@ -36,7 +40,7 @@ function operate(operator, firstNum, secondNum) {
                 return firstNum;
             }
             
-            return val;
+            return round(val);
     }
 }
 
@@ -116,9 +120,10 @@ function extractSymbol(target) {
 }
 
 function onButtonPress(event) {
-    clearErrors();
     const trueSymbol = extractSymbol(event.target);
     if(trueSymbol == null) return;
+
+    clearErrors();
 
     // operator entered
     if(event.target.classList.contains("op")) {
@@ -130,8 +135,9 @@ function onButtonPress(event) {
         if(currentOperator == "") {
             if(trueSymbol == '.' && firstNum == "") firstNum = "0";
 
-            if(firstNum.length >= DECIMAL_PLACE_LIMIT) displayError(`Numbers cannot exceed ${DECIMAL_PLACE_LIMIT} decimal places`);
+            if(firstNum.length >= DECIMAL_PLACE_LIMIT) displayError(`Numbers cannot exceed ${DECIMAL_PLACE_LIMIT} significant figures`);
             else if(firstNum.includes(".") && trueSymbol == ".") displayError("A number cannot contain two decimal points.");
+            else if(firstNum == "0" && trueSymbol != ".") firstNum = "";
             else {
                 updateNum(true, trueSymbol);
                 updateDisplay();
@@ -140,8 +146,9 @@ function onButtonPress(event) {
         else {
             if(trueSymbol == '.' && secondNum == "") secondNum = "0";
 
-            if(secondNum.length >= DECIMAL_PLACE_LIMIT) displayError(`Numbers cannot exceed ${DECIMAL_PLACE_LIMIT} decimal places`);
+            if(secondNum.length >= DECIMAL_PLACE_LIMIT) displayError(`Numbers cannot exceed ${DECIMAL_PLACE_LIMIT} significant figures`);
             else if(secondNum.includes(".") && trueSymbol == ".") displayError("A number cannot contain two decimal points.");
+            else if(secondNum == "0" && trueSymbol != ".") secondNum = "";
             else {
                 updateNum(false, trueSymbol);
                 updateDisplay();
